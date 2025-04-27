@@ -1,6 +1,7 @@
 #include<iostream>
 #include<array>
 #include<cmath>
+#include<string>
 
 using std::cout;
 using std::endl;
@@ -52,13 +53,25 @@ bool findFactors(int n, int& p, int& q) {
 }
 
 int main() {
-    const int e = 7;              // Relatively prime with $\phi (n)$
-    const int n = 4453;           // n = p * q
-    const int m = 115;            // The number of characters in the message
+    int e = 7;              // Relatively prime with $\phi (n)$
+    int n = 4453;           // n = p * q
+    int m = 115;            // The number of characters in the message
     int p = 0;                        // The prime number that makes up n
     int q = 0;                        // The prime number that makes up n
     int phi = 0;                      // $\phi (n) = (p-1)(q-1)$
     int M;                        // A decrypted node
+    std::array<int, 115> tempM = {1400, 2218, 99, 2970, 2218, 2962, 3015, 99, 871, 843,
+        3780, 843, 84, 2218, 2269, 2218, 1443, 2962, 99, 84,
+        843, 1655, 2979, 99, 843, 3015, 2382, 447, 4191, 871,
+        2218, 2962, 1294, 2916, 99, 843, 84, 843, 1655, 2979,
+        99, 871, 2218, 3237, 843, 99, 2269, 1443, 3237, 843,
+        4242, 1443, 3015, 2979, 99, 871, 2382, 1655, 2962, 2269,
+        99, 1443, 2962, 99, 871, 2088, 843, 99, 2269, 843,
+        871, 1691, 99, 2218, 99, 1294, 1443, 99, 2218, 2962,
+        871, 1443, 99, 871, 2088, 843, 99, 1443, 871, 2088,
+        843, 1655, 99, 1655, 1443, 1443, 3237, 99, 4191, 2962,
+        3015, 99, 1655, 843, 4191, 3015, 99, 4191, 99, 4242,
+        1443, 1443, 3629, 2916, 1400};
     // n is probably randomized... AAAAAAHHHHH
     //std::array<int, 18> primes = {2, 3, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
 
@@ -94,6 +107,10 @@ int main() {
     }
 
     cout << "d = " << d << endl;
+
+    std::string message = "";
+
+    
 
     return 0;
 }
