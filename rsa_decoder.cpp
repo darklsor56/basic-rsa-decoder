@@ -56,6 +56,19 @@ bool findFactors(int n, int& p, int& q) {
     return false;
 }
 
+// Maybe p and q are not prime?
+bool isPrime(int num) {
+    if(num < 2) return false;
+    if(num % 2 == 0) return num == 2;
+    int limit = static_cast<int>(std::sqrt(num));
+    for(unsigned int i = 3; i <= limit; i = i + 2) {
+        if(num % i == 0) {
+            return  false;
+        }
+    }
+    return true;
+}
+
 int decypher(int base, int exponent, int mod) {
     int result = 1;
     base = base % mod;
@@ -121,7 +134,7 @@ int main() {
     cin >> m;
     buildKey();
 
-    if(!findFactors(n, p, q)) {
+    if(!findFactors(n, p, q) || p == q || !isPrime(p) || !isPrime(q)) {
         //throw std::runtime_error("ERROR: Failed to find p or q");
         cout << "Public key is not valid!";
         return 1;
@@ -140,6 +153,7 @@ int main() {
         return 1;
     }
 
+    cout << p << " " << q << " " << phi << " " << d << endl;
     std::string message = "";
 
     int C;
