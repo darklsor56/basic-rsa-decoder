@@ -31,6 +31,26 @@ int modularInverse(int e, int phi) {
     return t;
 }
 
+bool findFactors(int n, int& p, int& q) {
+    // Check 2 first
+    if(n % 2 == 0) {
+        p = 2;
+        q = n / 2;
+        return true;
+    }
+    int limit = sqrt(n) + 1;
+
+    // Now only check odd numbers
+    for(unsigned int i = 3; i <= limit; i = i + 2) {
+        if(n % i == 0) {
+            p = i;
+            q = n / i;
+            return true;
+        }
+    }
+    return false;
+}
+
 int main() {
     const int e = 7;              // Relatively prime with $\phi (n)$
     const int n = 4453;           // n = p * q
@@ -39,7 +59,8 @@ int main() {
     int q = 0;                        // The prime number that makes up n
     int phi = 0;                      // $\phi (n) = (p-1)(q-1)$
     int M;                        // A decrypted node
-    std::array<int, 18> primes = {2, 3, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
+    // n is probably randomized... AAAAAAHHHHH
+    //std::array<int, 18> primes = {2, 3, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
 
 
     //cout << "Hello! Alice has given us Bob's e and n values and she expects us to edcrypt Bob's message" << endl;
@@ -49,16 +70,11 @@ int main() {
     //cout << endl;
 
     // Iterate through the list of possible factors of prime numbers as shown earlier in LaTeX
-    for(unsigned int i = 0; i < primes.size(); ++i) {
-        if (n % primes[i] == 0) {
-            p = primes[i];
-            q = n / primes[i];
-            break; // Once we find p and q, stop the loop
-        }
-    }
+    
 
-    if(p == 0 || q == 0) {
+    if(!findFactors(n, p, q)) {
         std::runtime_error("ERROR: Failed to find p or q");
+        return 1;
     }
 
     cout << "p = " << p << ", q = " << q << endl;
@@ -74,6 +90,7 @@ int main() {
     int d = modularInverse(e, phi);
     if(d == -1) {
         std::runtime_error("ERROR: given e is not invertable suggesting public key is not valid!");
+        return 1;
     }
 
     cout << "d = " << d << endl;
