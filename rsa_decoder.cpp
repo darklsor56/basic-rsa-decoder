@@ -73,7 +73,7 @@ int main() {
     
 
     if(!findFactors(n, p, q)) {
-        std::runtime_error("ERROR: Failed to find p or q");
+        throw std::runtime_error("ERROR: Failed to find p or q");
         return 1;
     }
 
@@ -89,7 +89,7 @@ int main() {
     // Use the Extended Euclidean Algorithm or Brute Force!
     int d = modularInverse(e, phi);
     if(d == -1) {
-        std::runtime_error("ERROR: given e is not invertable suggesting public key is not valid!");
+        throw std::runtime_error("ERROR: given e is not invertable suggesting public key is not valid!");
         return 1;
     }
 
